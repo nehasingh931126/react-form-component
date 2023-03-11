@@ -6,7 +6,6 @@ const SimpleInput = (props) => {
     setEnteredName(event.target.value);
   }
   const formSubmissionHandler = (event)=> {
-    
     event.preventDefault(); //Why because the HTTP Server request is sent so to avoid the default behaviour
     console.log(enteredName);
 
