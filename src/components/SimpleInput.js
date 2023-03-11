@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 const SimpleInput = (props) => {
   const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState('');
@@ -8,6 +8,15 @@ const SimpleInput = (props) => {
     setEnteredName(event.target.value);
   }
 
+
+  // flaw of setting the state as true for enteredNameIsValid
+  useEffect(()=> {
+    if(enteredNameIsValid) {
+      console.log('Name input is valid')
+    }
+  }, [enteredNameIsValid])
+  // flaw of setting the state as true for enteredNameIsValid
+
   const formSubmissionHandler = (event)=> {
     event.preventDefault(); //Why because the HTTP Server request is sent so to avoid the default behaviour
     console.log(enteredName);
@@ -15,7 +24,6 @@ const SimpleInput = (props) => {
       setEnteredNameIsValid(false);
       return;
     }
-
     const enteredValue = nameInputRef.current.value;
     console.log(enteredValue)
   }
