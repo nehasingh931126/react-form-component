@@ -1,24 +1,17 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 const SimpleInput = () => {
   const [enteredName, setEnteredName] = useState('');
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
-  const [formIsValid, setFormIsValid] = useState(false);
-
   const enteredNameIsValid = enteredName.trim() !== '';
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;  
   const nameInputClasses = nameInputIsInvalid ? 'form-control invalid' : 'form-control';
-
+  let formIsValid = false;
+  if (enteredNameIsValid) {
+    formIsValid = true
+  }
   const nameChangeFieldHandler = (event) => {
     setEnteredName(event.target.value);
   }
-
-  useEffect(()=> {
-    if (enteredNameIsValid) {
-      setFormIsValid(true)
-    } else {
-      setFormIsValid(false)
-    }
-  }, [enteredNameIsValid]); // add all the form Validity in this effect
 
   const formSubmissionHandler = (event)=> {
     event.preventDefault(); //Why because the HTTP Server request is sent so to avoid the default behaviour
