@@ -1,46 +1,29 @@
-import {useEffect, useRef, useState} from 'react';
-const SimpleInput = (props) => {
-  const nameInputRef = useRef();
+import {useState} from 'react';
+const SimpleInput = () => {
   const [enteredName, setEnteredName] = useState('');
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
-  
+
+  const nameInputIsInvalid = enteredName.trim() === '' && enteredNameTouched;  
+  const nameInputClasses = nameInputIsInvalid ? 'form-control invalid' : 'form-control';
+
   const nameChangeFieldHandler = (event) => {
     setEnteredName(event.target.value);
-    if (event.target.value.trim() !== '') { // validations
-      setEnteredNameIsValid(true);
-    }
   }
-
-
-  // flaw of setting the state as true for enteredNameIsValid
-  useEffect(()=> {
-    if(enteredNameIsValid) {
-      console.log('Name input is valid')
-    }
-  }, [enteredNameIsValid])
-  // flaw of setting the state as true for enteredNameIsValid
 
   const formSubmissionHandler = (event)=> {
     event.preventDefault(); //Why because the HTTP Server request is sent so to avoid the default behaviour
-    setEnteredNameTouched(true);
-
-    if(enteredName.trim() === '') { // validations
-      setEnteredNameIsValid(false);
+    setEnteredNameTouched(true);  
+    if (nameInputIsInvalid) {
+      return;
     }
-    const enteredValue = nameInputRef.current.value;
+      
+    setEnteredName('');
+    setEnteredNameTouched(false);
   }
 
   const nameInputBlurHandler = (event) => {
     setEnteredNameTouched(true);
-    if (enteredName.trim() === '') { // validations
-      setEnteredNameIsValid(false);
-      return;
-    }
   }
-
-  const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
-  const nameInputClasses = nameInputIsInvalid ? 'form-control invalid' : 'form-control';
 
   return (
     <form onSubmit={formSubmissionHandler}>
