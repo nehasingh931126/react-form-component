@@ -1,14 +1,24 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 const SimpleInput = () => {
   const [enteredName, setEnteredName] = useState('');
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  const [formIsValid, setFormIsValid] = useState(false);
 
-  const nameInputIsInvalid = enteredName.trim() === '' && enteredNameTouched;  
+  const enteredNameIsValid = enteredName.trim() !== '';
+  const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;  
   const nameInputClasses = nameInputIsInvalid ? 'form-control invalid' : 'form-control';
 
   const nameChangeFieldHandler = (event) => {
     setEnteredName(event.target.value);
   }
+
+  useEffect(()=> {
+    if (enteredNameIsValid) {
+      setFormIsValid(true)
+    } else {
+      setFormIsValid(false)
+    }
+  }, [enteredNameIsValid]); // add all the form Validity in this effect
 
   const formSubmissionHandler = (event)=> {
     event.preventDefault(); //Why because the HTTP Server request is sent so to avoid the default behaviour
@@ -29,11 +39,11 @@ const SimpleInput = () => {
     <form onSubmit={formSubmissionHandler}>
       <div className={nameInputClasses}>
         <label htmlFor='name'>Your Name</label>
-        <input ref={nameInputRef} type='text' id='name' value={enteredName} onChange={nameChangeFieldHandler} onBlur={nameInputBlurHandler}/>
+        <input type='text' id='name' value={enteredName} onChange={nameChangeFieldHandler} onBlur={nameInputBlurHandler}/>
         {nameInputIsInvalid  && <p className="error-text">Name must not be empty</p>}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
