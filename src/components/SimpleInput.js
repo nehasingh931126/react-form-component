@@ -1,4 +1,4 @@
-import useInput from './hooks/use-input';
+import useInput from './hooks/use-input-reducer';
 const SimpleInput = () => {
   const { value: enteredName, 
     isValid: nameIsValid,

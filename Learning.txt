@@ -1,2 +1,8 @@
 Maxmillian Link for making the form handling more custom
 https://academind.com/tutorials/reactjs-a-custom-useform-hook/
+
+There are third Party libraries that can be used for validation of forms
+Here you donot have to do much statemanagement logic but you can add only the validation and formik will do the rest 
+
+
+
