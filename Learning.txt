@@ -1,0 +1,2 @@
+Maxmillian Link for making the form handling more custom
+https://academind.com/tutorials/reactjs-a-custom-useform-hook/

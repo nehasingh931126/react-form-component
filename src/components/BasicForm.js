@@ -1,23 +1,20 @@
 import useForm from "./hooks/use-form";
 const BasicForm = (props) => {
+  const isNotEmpty = (value) => value.trim() !== '';
   let formValid = false;
   const { inputValue: nameInput,
     isFieldValid: isNameValid,
     hasError: nameHasError,
     inputChangeHandler: nameChangeHandler,
     inputBlurHandler: nameBlurChangeHandler,
-    resetValue: resetName } = useForm((value) => {
-      return value.trim() !== ''
-    })
+    resetValue: resetName } = useForm(isNotEmpty)
 
   const { inputValue: lnameInput,
     isFieldValid: isLnameValid,
     hasError: lnameHasError,
     inputChangeHandler: lnameChangeHandler,
     inputBlurHandler: lnameBlurChangeHandler,
-    resetValue: resetLname } = useForm((value) => {
-      return value.trim() !== ''
-    })
+    resetValue: resetLname } = useForm(isNotEmpty)
 
   const { inputValue: emailInput,
     isFieldValid: isEmailValid,
